@@ -4,12 +4,37 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        index: './src/index.js',
-        search: './src/search.js'
+        index: "./src/index.js",
+        search: "./src/search.js"
     },
     output: {
-        path: path.join(__dirname, 'dist'),
-        filename: '[name].js'
+        path: path.join(__dirname, "dist"),
+        filename: "[name].js"
     },
-    mode: 'production'
+    mode: "production",
+    module: {
+        rules: [
+            { test: /.js$/, use: "babel-loader" },
+            { test: /\.css$/, use: ["style-loader", "css-loader"] },
+            { test: /\.less$/, use: ["style-loader", "css-loader", "less-loader"]},
+            {
+                test: /\.(jpg|png|gif|jpeg)$/,
+                use: {
+                    loader: "url-loader",
+                    options: {
+                        limit: 10240
+                    }
+                }
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
+                use: {
+                    loader: "url-loader",
+                    options: {
+                        limit: 10240
+                    }
+                }
+            }
+        ]
+    }
 };
